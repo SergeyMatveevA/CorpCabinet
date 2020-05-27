@@ -1,0 +1,66 @@
+{% extends 'arrangement/base.html' %}
+{% load static %}
+{% block title %} {{ page_name }} {% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/ie_problems.css' %}">
+
+    <form method="POST">
+        <h1>{{ page_name }}</h1>
+        </br>
+
+            {{ form.SurveyName }}
+
+        <label style="margin-left: 5px;">Начало периода</label>
+        <input name="date_start" type="date" value = {{ date_start }} style="margin-left: 5px;">
+
+        <label style="margin-left: 5px;">Конец периода</label>
+        <input name="date_end" type="date" value = {{ date_end }} style="margin-left: 5px;">
+
+        {% if headers %}
+            <input type="submit" value="Обновить" style="margin-left: 5px; vertical-align: 0px;">
+            <input type="submit" value="Экспорт в excel" name="download_excel" style="margin-left: 5px; vertical-align: 0px;">
+        {% else %}
+            <input type="submit" value="Загрузить" style="margin-left: 5px; vertical-align: 0px;">
+        {% endif %}
+
+        <p></p>
+
+        {% if resume_stat %}
+            </br>
+            <h3><a>{{ resume_stat }}</a></h3>
+        {% elif dates_count %}
+            </br>
+            <em><div style="color: gray;"><h3>На экране выведены девять последних дат из указанного диапазона, полный диапазон доступен в xlsx-файле</h3></div></em>
+        {% endif %}
+        {% csrf_token %}
+    </form>
+
+    {% if headers %}
+        </br>
+        <table border="3px" cellpadding="5px" align="center" id="dialing_table">
+                <tr align="center" >
+                    {%  for date in headers %}
+                        <td style="border: 2px solid; padding: 5px; background: #eee;"><h2>{{ date }}</h2></td>
+                    {% endfor %}
+                </tr>
+                {%  for response in rows %}
+                    {% for label, columns in response.items %}
+                        <tr align="center">
+                            <td style="border: 2px solid; width: 320px; padding: 2px; background: #eee;">{{ label }}</td>
+                            {% if label == 'Итого за день' %}
+                               {% for column in columns %}
+                                    <td style="border: 2px solid; background: #eee;" class="total_row"><center>{{ column }}</center></td>
+                                {% endfor %}
+                            {% else %}
+                               {% for column in columns %}
+                                    <td style="border: 2px solid;" class="ordinary_row"><center>{{ column }}</center></td>
+                                {% endfor %}
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

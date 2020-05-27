@@ -1,0 +1,11 @@
+.idea/*
+__pycache__/
+myenv/*
+sv/static/*
+celerybeat-schedule.db
+media/*
+hcsisal/files/*
+celerybeat.pid
+*/migrations/*
+nipo_models.py
+venv/*

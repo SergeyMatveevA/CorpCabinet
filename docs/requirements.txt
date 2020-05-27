@@ -1,0 +1,29 @@
+# Для psycopg нужно установить , после чего устанавливать binary-вариант
+# sudo dnf install postgresql-devel
+# Для pyodbc на Fedora/CentOS нужно сначала сделать:
+# sudo dnf install redhat-rpm-config gcc-c++ python3-devel unixODBC-devel
+# для mysqlclient==1.4.6 нужно
+# sudo yum install mysql-devel
+
+amqp==2.5.0
+Babel==2.7.0
+billiard==3.6.0.0
+celery==4.3.0
+Django==2.2.2
+django-admin-export==2.0
+django-import-export==1.2.0
+django-grappelli==2.12.3
+django-mssql-backend==2.2.0
+flower==0.9.3
+mysqlclient==1.4.6
+numpy==1.18.2
+pandas==1.0.3
+psycopg2==2.8.3
+pydub==0.23.1
+pymssql==2.1.4
+pyodbc==4.0.27
+pytils==0.3
+SQLAlchemy==1.3.15
+sqlparse==0.3.0
+tornado==5.1.1
+vine==1.3.0

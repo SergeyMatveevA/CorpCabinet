@@ -1,0 +1,49 @@
+{% extends 'arrangement/base.html' %}
+{% load static %}
+{% block title %} {{ page_name }} {% endblock %}
+
+
+{% block content %}
+
+    <form method="POST">
+        <h1>{{ page_name }}</h1>
+        </br>
+            {{ form.SurveyName }}
+        {% if data %}
+            <input type="submit" value="Обновить" style="margin-left: 5px; vertical-align: 0px;">
+            <input type="submit" value="Экспорт в excel" name="download_excel" style="margin-left: 5px; vertical-align: 0px;">
+        {% else %}
+            <input type="submit" value="Загрузить" style="margin-left: 5px; vertical-align: 0px;">
+        {% endif %}
+
+        <p></p>
+
+        {% if resume_stat %}
+            </br>
+            <h3><a>{{ resume_stat }}</a></h3>
+        {% endif %}
+        {% csrf_token %}
+    </form>
+
+    {% if data %}
+        </br></br>
+        <table border="3px" cellpadding="5px" align="center">
+                <tr align="center" >
+                    <td style="border: 2px solid; padding: 5px; background: #eee;"><h2>Описание квоты</h2></td>
+                    <td style="border: 2px solid; padding: 5px; background: #eee;"><h2>Всего успешных</h2></td>
+                    <td style="border: 2px solid; padding: 5px; background: #eee;"><h2>Размер квоты</h2></td>
+                    <td style="border: 2px solid; padding: 5px; background: #eee;"><h2>Процент выполнения</h2></td>
+                </tr>
+                {% for row in data %}
+                        <tr align="center">
+                            <td style="border: 2px solid; padding-left: 3px; padding-right: 3px;" class="ordinary_row">{{ row.3 }}</td>
+                            <td style="border: 2px solid;" class="ordinary_row"><center>{{ row.4 }}</center></td>
+                            <td style="border: 2px solid;" class="ordinary_row"><center>{{ row.2 }}</center></td>
+                            <td style="border: 2px solid;" class="ordinary_row"><center>{{ row.5 }}%</center></td>
+                        </tr>
+                {%  endfor %}
+        </table>
+    {% endif %}
+
+
+{% endblock %}

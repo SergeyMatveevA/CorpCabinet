@@ -1,0 +1,51 @@
+{% extends 'arrangement/base.html' %}
+{% load static %}
+{% block title %} {{ page_name }} {% endblock %}
+
+
+{% block content %}
+
+    <form method="POST">
+        <h1>{{ page_name }}</h1>
+        </br>
+            {{ form.SurveyName }}
+        <label style="margin-left: 5px;">Начало периода</label>
+        <input name="date_start" type="date" value = {{ date_start }} style="margin-left: 5px;">
+
+        <label style="margin-left: 5px;">Конец периода</label>
+        <input name="date_end" type="date" value = {{ date_end }} style="margin-left: 5px;">
+
+        {% if headers %}
+            <input type="submit" value="Обновить" style="margin-left: 5px; vertical-align: 0px;">
+            <input type="submit" value="Экспорт в excel" name="download_excel" style="margin-left: 5px; vertical-align: 0px;">
+        {% else %}
+            <input type="submit" value="Загрузить" style="margin-left: 5px; vertical-align: 0px;">
+        {% endif %}
+
+        <p></p>
+
+        {% if resume_stat %}
+            </br>
+            <h3><a>{{ resume_stat }}</a></h3>
+        {% endif %}
+        {% csrf_token %}
+    </form>
+
+    {% if headers %}
+        </br>
+        <table border="3px" cellpadding="5px" align="center">
+                <tr align="center" >
+                    {%  for column in headers %}
+                        <td style="border: 2px solid; padding: 5px; background: #eee;"><h2>{{ column }}</h2></td>
+                    {% endfor %}
+                </tr>
+                {% for values in rows%}
+                    <tr>
+                       {% for cell in values %}
+                            <td style="border: 2px solid;" class="ordinary_row"><center>{{ cell }}</center></td>
+                       {% endfor %}
+                    </tr>
+                {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
