@@ -16,7 +16,7 @@ django-grappelli==2.12.3
 django-mssql-backend==2.2.0
 flower==0.9.3
 mysqlclient==1.4.6
-numpy==1.18.2
+numpy==1.22.0
 pandas==1.0.3
 psycopg2==2.8.3
 pydub==0.23.1
